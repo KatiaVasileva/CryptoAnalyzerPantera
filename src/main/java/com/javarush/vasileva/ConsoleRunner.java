@@ -1,11 +1,5 @@
 package com.javarush.vasileva;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class ConsoleRunner {
@@ -15,6 +9,7 @@ public class ConsoleRunner {
 
     public static void main(String[] args) {
         Alphabet alphabet = new Alphabet(ALPHABET);
+        Cipher cipher = new Cipher(alphabet);
 
         Scanner scanner = new Scanner(System.in);
         int key = scanner.nextInt();
@@ -22,34 +17,6 @@ public class ConsoleRunner {
         String sourcePath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testText.txt";
         String targetPath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testEncrypted.txt";
 
-        encrypt(sourcePath, targetPath, alphabet, key);
-    }
-
-    public static void encrypt(String sourcePath, String targetPath, Alphabet alphabet, int key) {
-        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
-        try (BufferedReader reader = Files.newBufferedReader(Path.of(sourcePath));
-             BufferedWriter writer = Files.newBufferedWriter(Path.of(targetPath))) {
-            while (reader.ready()) {
-                String line = reader.readLine();
-                for(char c : line.toLowerCase().toCharArray()) {
-                    int index;
-                    if (mapAlphabet.containsKey(c)) {
-                        index = mapAlphabet.get(c);
-                    } else {
-                        continue;
-                    }
-                    int indexWithKey = index + key;
-                    if (indexWithKey < mapAlphabet.size()) {
-                        writer.write(String.valueOf(alphabet.getKeyByValue(mapAlphabet, indexWithKey)));
-                    } else {
-                        writer.write(String.valueOf(alphabet.getKeyByValue(mapAlphabet, (index + key) % ALPHABET.length)));
-                    }
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File is not found");
-        } catch (IOException e) {
-            System.out.println("Error reading file");
-        }
+        cipher.encrypt(sourcePath, targetPath, key);
     }
 }
