@@ -42,4 +42,32 @@ public class Cipher {
             System.out.println("Error reading file");
         }
     }
+
+    public void decrypt(String targetPath, String sourcePath, int key) {
+        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
+        try (BufferedReader reader = Files.newBufferedReader(Path.of(targetPath));
+             BufferedWriter writer = Files.newBufferedWriter(Path.of(sourcePath))) {
+            while (reader.ready()) {
+                String line = reader.readLine();
+                for (char c : line.toLowerCase().toCharArray()) {
+                    int index;
+                    if (mapAlphabet.containsKey(c)) {
+                        index = mapAlphabet.get(c);
+                    } else {
+                        continue;
+                    }
+                    int indexWithKey = index - key;
+                    if (indexWithKey >= 0) {
+                        writer.write(String.valueOf(alphabet.getKeyByValue(mapAlphabet, indexWithKey)));
+                    } else {
+                        writer.write(String.valueOf(alphabet.getKeyByValue(mapAlphabet, (indexWithKey + mapAlphabet.size()))));
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not found");
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+        }
+    }
 }

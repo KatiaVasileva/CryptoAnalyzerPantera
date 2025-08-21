@@ -18,5 +18,6 @@ public class ConsoleRunner {
         String targetPath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testEncrypted.txt";
 
         cipher.encrypt(sourcePath, targetPath, key);
+        cipher.decrypt(targetPath, sourcePath, key);
     }
 }
