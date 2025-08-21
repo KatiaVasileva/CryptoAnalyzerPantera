@@ -14,10 +14,11 @@ public class ConsoleRunner {
         Scanner scanner = new Scanner(System.in);
         int key = scanner.nextInt();
 
-        String sourcePath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testText.txt";
-        String targetPath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testEncrypted.txt";
+        String originalFile = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/text.txt";
+        String encryptedFile = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/encrypted.txt";
+        String decryptedFile = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/decrypted.txt";
 
-        cipher.encrypt(sourcePath, targetPath, key);
-        cipher.decrypt(targetPath, sourcePath, key);
+        cipher.encrypt(originalFile, encryptedFile, key);
+        cipher.decrypt(encryptedFile, decryptedFile, key);
     }
 }
