@@ -15,7 +15,6 @@ public class ConsoleRunner {
 
     public static void main(String[] args) {
         Alphabet alphabet = new Alphabet(ALPHABET);
-        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
 
         Scanner scanner = new Scanner(System.in);
         int key = scanner.nextInt();
@@ -23,6 +22,11 @@ public class ConsoleRunner {
         String sourcePath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testText.txt";
         String targetPath = "/Users/katiavasileva/IdeaProjects/CryptoAnalyzerPantera/text/testEncrypted.txt";
 
+        encrypt(sourcePath, targetPath, alphabet, key);
+    }
+
+    public static void encrypt(String sourcePath, String targetPath, Alphabet alphabet, int key) {
+        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
         try (BufferedReader reader = Files.newBufferedReader(Path.of(sourcePath));
              BufferedWriter writer = Files.newBufferedWriter(Path.of(targetPath))) {
             while (reader.ready()) {
