@@ -10,44 +10,31 @@ public class Cipher {
     }
 
     public void encrypt(String originalFile, String encryptedFile, int key) {
-        FileManager fileManager = new FileManager();
-        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
-        String content = fileManager.readFile(originalFile);
-        if (content == null) {
-            return;
-        }
-        StringBuilder encrypted = new StringBuilder();
-
-        for (char c : content.toLowerCase().toCharArray()) {
-            if (!mapAlphabet.containsKey(c)) {
-                continue;
-            }
-            int index = mapAlphabet.get(c);
-            int indexWithKey = (index + key) % mapAlphabet.size();
-            encrypted.append(alphabet.getKeyByValue(mapAlphabet, indexWithKey));
-        }
-
-        fileManager.writeFile(encryptedFile, encrypted.toString());
+        prepareFiles(originalFile, encryptedFile, key, true);
     }
 
     public void decrypt(String encryptedFile, String originalFile, int key) {
+        prepareFiles(encryptedFile, originalFile, key, false);
+    }
+
+    public void prepareFiles(String src, String dest, int key, boolean isEncrypt) {
         FileManager fileManager = new FileManager();
         Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
-        String content = fileManager.readFile(encryptedFile);
+        String content = fileManager.readFile(src);
         if (content == null) {
             return;
         }
-        StringBuilder decrypted = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         for (char c : content.toLowerCase().toCharArray()) {
             if (!mapAlphabet.containsKey(c)) {
                 continue;
             }
             int index = mapAlphabet.get(c);
-            int indexWithKey = (index - key + mapAlphabet.size()) % mapAlphabet.size();
-            decrypted.append(alphabet.getKeyByValue(mapAlphabet, indexWithKey));
+            int indexWithKey = isEncrypt ? (index + key) % mapAlphabet.size() : (index - key + mapAlphabet.size()) % mapAlphabet.size();
+            sb.append(alphabet.getKeyByValue(mapAlphabet, indexWithKey));
         }
 
-        fileManager.writeFile(originalFile, decrypted.toString());
+        fileManager.writeFile(dest, sb.toString());
     }
 }
