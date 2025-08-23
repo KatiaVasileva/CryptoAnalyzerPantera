@@ -1,5 +1,7 @@
 package com.javarush.vasileva;
 
+import com.javarush.vasileva.constant.Alphabet;
+
 import java.util.Map;
 
 public class Cipher {
