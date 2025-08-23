@@ -1,15 +1,10 @@
 package com.javarush.vasileva;
 
-import com.javarush.vasileva.constant.Alphabet;
-
 import java.util.Map;
 
-public class Cipher {
-    private final Alphabet alphabet;
+import static com.javarush.vasileva.constant.Alphabet.*;
 
-    public Cipher(Alphabet alphabet) {
-        this.alphabet = alphabet;
-    }
+public class Cipher {
 
     public void encrypt(String originalFile, String encryptedFile, int key) {
         prepareFiles(originalFile, encryptedFile, key, true);
@@ -21,7 +16,7 @@ public class Cipher {
 
     public void prepareFiles(String src, String dest, int key, boolean isEncrypt) {
         FileManager fileManager = new FileManager();
-        Map<Character, Integer> mapAlphabet = alphabet.getMapAlphabet(alphabet.getAlphabet());
+        Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);
         if (content == null) {
             return;
@@ -33,8 +28,8 @@ public class Cipher {
                 continue;
             }
             int index = mapAlphabet.get(c);
-            int indexWithKey = isEncrypt ? (index + key) % mapAlphabet.size() : (index - key + mapAlphabet.size()) % mapAlphabet.size();
-            sb.append(alphabet.getKeyByValue(mapAlphabet, indexWithKey));
+            int indexWithKey = isEncrypt ? (index + key) % mapAlphabet.size() : (index - key + Math.abs(key) * mapAlphabet.size()) % mapAlphabet.size();
+            sb.append(getKeyByValue(mapAlphabet, indexWithKey));
         }
 
         fileManager.writeFile(dest, sb.toString());

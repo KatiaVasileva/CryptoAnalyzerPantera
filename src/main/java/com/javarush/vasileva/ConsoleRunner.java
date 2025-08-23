@@ -1,14 +1,11 @@
 package com.javarush.vasileva;
 
-import com.javarush.vasileva.constant.Alphabet;
-
 import java.util.*;
 
 public class ConsoleRunner {
 
     public static void main(String[] args) {
-        Alphabet alphabet = new Alphabet();
-        Cipher cipher = new Cipher(alphabet);
+        Cipher cipher = new Cipher();
 
         Scanner scanner = new Scanner(System.in);
         int key = scanner.nextInt();
