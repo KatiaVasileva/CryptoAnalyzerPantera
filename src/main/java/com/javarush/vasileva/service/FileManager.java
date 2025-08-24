@@ -1,4 +1,4 @@
-package com.javarush.vasileva;
+package com.javarush.vasileva.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,9 +9,10 @@ import java.nio.file.Path;
 
 public class FileManager {
 
-    public String readFile(String originalFile) {
+    public String readFile(String path) {
         StringBuilder content = new StringBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(Path.of(originalFile))) {
+        Path absolutePath = Path.of("text/" + path).toAbsolutePath();
+        try (BufferedReader reader = Files.newBufferedReader(absolutePath)) {
             while (reader.ready()) {
                 content.append(reader.readLine());
             }
@@ -25,9 +26,11 @@ public class FileManager {
         return content.toString();
     }
 
-    public void writeFile(String encryptedFile, String content) {
-        try (BufferedWriter writer = Files.newBufferedWriter(Path.of(encryptedFile))) {
+    public void writeFile(String path, String content) {
+        Path absolutePath = Path.of("text/" + path).toAbsolutePath();
+        try (BufferedWriter writer = Files.newBufferedWriter(absolutePath)) {
             writer.write(content);
+            System.out.println("\nResult is OK");
         } catch (IOException e) {
             System.out.println("Error writing file");
         }

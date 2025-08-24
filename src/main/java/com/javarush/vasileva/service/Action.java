@@ -1,20 +1,12 @@
-package com.javarush.vasileva;
+package com.javarush.vasileva.service;
 
 import java.util.Map;
 
 import static com.javarush.vasileva.constant.Alphabet.*;
 
-public class Cipher {
+public abstract class Action implements ActionInterface{
 
-    public void encrypt(String originalFile, String encryptedFile, int key) {
-        prepareFiles(originalFile, encryptedFile, key, true);
-    }
-
-    public void decrypt(String encryptedFile, String originalFile, int key) {
-        prepareFiles(encryptedFile, originalFile, key, false);
-    }
-
-    public void prepareFiles(String src, String dest, int key, boolean isEncrypt) {
+    public void prepareFiles(String src, String dest, int key) {
         FileManager fileManager = new FileManager();
         Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);
@@ -28,7 +20,7 @@ public class Cipher {
                 continue;
             }
             int index = mapAlphabet.get(c);
-            int indexWithKey = isEncrypt ? (index + key) % mapAlphabet.size() : (index - key + Math.abs(key) * mapAlphabet.size()) % mapAlphabet.size();
+            int indexWithKey = (index + key + Math.abs(key) * mapAlphabet.size()) % mapAlphabet.size();
             sb.append(getKeyByValue(mapAlphabet, indexWithKey));
         }
 
