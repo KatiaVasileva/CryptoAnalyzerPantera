@@ -1,6 +1,7 @@
 package com.javarush.vasileva.view;
 
 import com.javarush.vasileva.controller.Controller;
+import com.javarush.vasileva.entity.Request;
 
 import java.util.Scanner;
 
@@ -18,15 +19,17 @@ public class ConsoleMenu {
             System.out.print("Your choice: ");
             int choice = scanner.nextInt();
 
+            Request request = new Request();
+
             if (choice == 1 || choice == 2) {
                 System.out.println("Enter the path of the source file: ");
                 scanner.nextLine();
-                String sourceFile = scanner.nextLine();
+                request.setSourceFile(scanner.nextLine());
                 System.out.println("Enter the path of the target file: ");
-                String targetFile = scanner.nextLine();
+                request.setTargetFile(scanner.nextLine());
                 System.out.print("Enter the key: ");
-                int key = scanner.nextInt();
-                controller.doAction(sourceFile, targetFile, key, choice);
+                request.setKey(scanner.nextInt());
+                controller.doAction(request, choice);
             } else if (choice == 0) {
                 System.exit(0);
             } else {

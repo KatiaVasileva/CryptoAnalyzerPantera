@@ -1,8 +1,10 @@
 package com.javarush.vasileva.service;
 
+import com.javarush.vasileva.entity.Request;
+
 public class Decrypt extends Action{
     @Override
-    public void execute(String src, String dest, int key) {
-        prepareFiles(src, dest, -1 * key);
+    public void execute(Request request) {
+        prepareFiles(request.getSourceFile(), request.getTargetFile(), -1 * request.getKey());
     }
 }
