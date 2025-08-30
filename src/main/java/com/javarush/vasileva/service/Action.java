@@ -13,6 +13,13 @@ public abstract class Action implements ActionInterface{
         Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);
         isEmptyFile(content);
+
+        StringBuilder sb = getDecryptedTextAsStringBuilder(key, content, mapAlphabet);
+
+        fileManager.writeFile(dest, sb.toString());
+    }
+
+    public StringBuilder getDecryptedTextAsStringBuilder(int key, String content, Map<Character, Integer> mapAlphabet) {
         StringBuilder sb = new StringBuilder();
 
         for (char c : content.toLowerCase().toCharArray()) {
@@ -23,7 +30,6 @@ public abstract class Action implements ActionInterface{
             int indexWithKey = (index + key + Math.abs(key) * mapAlphabet.size()) % mapAlphabet.size();
             sb.append(getKeyByValue(mapAlphabet, indexWithKey));
         }
-
-        fileManager.writeFile(dest, sb.toString());
+        return sb;
     }
 }

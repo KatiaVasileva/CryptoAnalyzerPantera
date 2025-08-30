@@ -12,9 +12,10 @@ public class ConsoleMenu {
     public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Choose the action (enter 1, 2 or 0):");
+            System.out.println("Choose the action (enter 1, 2, 3 or 0):");
             System.out.println("1 - Encrypt");
             System.out.println("2 - Decrypt");
+            System.out.println("3 - Brute Force");
             System.out.println("0 - Exit");
             System.out.println("****************");
             System.out.print("Your choice: ");
@@ -30,6 +31,16 @@ public class ConsoleMenu {
                 request.setTargetFile(scanner.nextLine());
                 System.out.print("Enter the key: ");
                 request.setKey(scanner.nextInt());
+                Response response = controller.doAction(request, choice);
+                System.out.println("\n" + response.code());
+                System.out.println(response.type());
+                System.out.println(response.message());
+            } else if (choice == 3) {
+                System.out.println("Enter the path of the encrypted file: ");
+                scanner.nextLine();
+                request.setSourceFile(scanner.nextLine());
+                System.out.println("Enter the path of the decrypted file: ");
+                request.setTargetFile(scanner.nextLine());
                 Response response = controller.doAction(request, choice);
                 System.out.println("\n" + response.code());
                 System.out.println(response.type());

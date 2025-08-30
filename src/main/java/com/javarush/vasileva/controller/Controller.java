@@ -5,6 +5,7 @@ import com.javarush.vasileva.entity.Response;
 import com.javarush.vasileva.entity.ResponseType;
 import com.javarush.vasileva.exceptions.EmptyFileException;
 import com.javarush.vasileva.service.Action;
+import com.javarush.vasileva.service.BruteForce;
 import com.javarush.vasileva.service.Decrypt;
 import com.javarush.vasileva.service.Encrypt;
 
@@ -17,11 +18,13 @@ public class Controller {
         HashMap<Integer, Action> actions = new HashMap<>();
         actions.put(1, new Encrypt());
         actions.put(2, new Decrypt());
+        actions.put(3, new BruteForce());
 
         try {
             switch (choice) {
                 case 1 -> actions.get(1).execute(request);
                 case 2 -> actions.get(2).execute(request);
+                case 3 -> actions.get(3).execute(request);
                 default -> System.out.println("Invalid choice");
             }
         } catch (EmptyFileException e) {

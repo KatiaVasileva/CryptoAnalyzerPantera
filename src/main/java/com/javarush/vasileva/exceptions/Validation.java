@@ -19,4 +19,10 @@ public class Validation {
             throw new EmptyFileException();
         }
     }
+
+    public static void isSuitableForBruteForce (String content) {
+        if (!content.contains(" ") || content.length() < 1000) {
+            throw new TextTooShortException();
+        }
+    }
 }
