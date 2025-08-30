@@ -9,30 +9,21 @@ import java.nio.file.Path;
 
 public class FileManager {
 
-    public String readFile(String path) {
+    public String readFile(String path) throws IOException {
         StringBuilder content = new StringBuilder();
         Path absolutePath = Path.of("text/" + path).toAbsolutePath();
         try (BufferedReader reader = Files.newBufferedReader(absolutePath)) {
             while (reader.ready()) {
                 content.append(reader.readLine());
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File is not found");
-            return null;
-        } catch (IOException e) {
-            System.out.println("Error reading file");
-            return null;
         }
         return content.toString();
     }
 
-    public void writeFile(String path, String content) {
+    public void writeFile(String path, String content) throws IOException {
         Path absolutePath = Path.of("text/" + path).toAbsolutePath();
         try (BufferedWriter writer = Files.newBufferedWriter(absolutePath)) {
             writer.write(content);
-            System.out.println("\nResult is OK");
-        } catch (IOException e) {
-            System.out.println("Error writing file");
         }
     }
 }

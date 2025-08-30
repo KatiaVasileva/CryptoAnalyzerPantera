@@ -1,12 +1,13 @@
 package com.javarush.vasileva.service;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static com.javarush.vasileva.constant.Alphabet.*;
 
 public abstract class Action implements ActionInterface{
 
-    public void prepareFiles(String src, String dest, int key) {
+    public void prepareFiles(String src, String dest, int key) throws IOException {
         FileManager fileManager = new FileManager();
         Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);
