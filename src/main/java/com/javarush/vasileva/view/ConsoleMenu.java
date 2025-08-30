@@ -31,9 +31,9 @@ public class ConsoleMenu {
                 System.out.print("Enter the key: ");
                 request.setKey(scanner.nextInt());
                 Response response = controller.doAction(request, choice);
-                System.out.println("\n" + response.getCode());
-                System.out.println(response.getType());
-                System.out.println(response.getMessage());
+                System.out.println("\n" + response.code());
+                System.out.println(response.type());
+                System.out.println(response.message());
             } else if (choice == 0) {
                 System.exit(0);
             } else {
