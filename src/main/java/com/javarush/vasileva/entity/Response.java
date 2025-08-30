@@ -1,7 +1,5 @@
 package com.javarush.vasileva.entity;
 
-import java.net.Authenticator;
-
 public class Response {
     private final String code;
     private final ResponseType type;
