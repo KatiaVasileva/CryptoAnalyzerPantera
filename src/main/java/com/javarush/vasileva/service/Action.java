@@ -1,9 +1,12 @@
 package com.javarush.vasileva.service;
 
+import com.javarush.vasileva.exceptions.Validation.*;
+
 import java.io.IOException;
 import java.util.Map;
 
 import static com.javarush.vasileva.constant.Alphabet.*;
+import static com.javarush.vasileva.exceptions.Validation.*;
 
 public abstract class Action implements ActionInterface{
 
@@ -11,9 +14,7 @@ public abstract class Action implements ActionInterface{
         FileManager fileManager = new FileManager();
         Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);
-        if (content == null) {
-            return;
-        }
+        isEmptyFile(content);
         StringBuilder sb = new StringBuilder();
 
         for (char c : content.toLowerCase().toCharArray()) {
