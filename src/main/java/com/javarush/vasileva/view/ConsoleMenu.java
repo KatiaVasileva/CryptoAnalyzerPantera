@@ -2,6 +2,7 @@ package com.javarush.vasileva.view;
 
 import com.javarush.vasileva.controller.Controller;
 import com.javarush.vasileva.entity.Request;
+import com.javarush.vasileva.entity.Response;
 
 import java.util.Scanner;
 
@@ -29,7 +30,10 @@ public class ConsoleMenu {
                 request.setTargetFile(scanner.nextLine());
                 System.out.print("Enter the key: ");
                 request.setKey(scanner.nextInt());
-                controller.doAction(request, choice);
+                Response response = controller.doAction(request, choice);
+                System.out.println("\n" + response.getCode());
+                System.out.println(response.getType());
+                System.out.println(response.getMessage());
             } else if (choice == 0) {
                 System.exit(0);
             } else {
