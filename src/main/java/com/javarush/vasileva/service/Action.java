@@ -9,6 +9,8 @@ import static com.javarush.vasileva.exceptions.Validation.*;
 public abstract class Action implements ActionInterface{
 
     public void prepareFiles(String src, String dest, int key) throws IOException {
+        isValidKey(key, alphabet);
+
         FileManager fileManager = new FileManager();
         Map<Character, Integer> mapAlphabet = getMapAlphabet();
         String content = fileManager.readFile(src);

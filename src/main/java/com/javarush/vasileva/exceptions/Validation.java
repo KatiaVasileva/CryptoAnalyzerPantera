@@ -20,6 +20,12 @@ public class Validation {
         }
     }
 
+    public static void isValidKey(int key, Character[] alphabet) {
+        if (key <= 0 || key % alphabet.length == 0) {
+            throw new InvalidKeyException();
+        }
+    }
+
     public static void isSuitableForBruteForce (String content) {
         if (!content.contains(" ") || content.length() < 1000) {
             throw new TextTooShortException();

@@ -4,6 +4,7 @@ import com.javarush.vasileva.entity.Request;
 import com.javarush.vasileva.entity.Response;
 import com.javarush.vasileva.entity.ResponseType;
 import com.javarush.vasileva.exceptions.EmptyFileException;
+import com.javarush.vasileva.exceptions.InvalidKeyException;
 import com.javarush.vasileva.exceptions.TextTooShortException;
 import com.javarush.vasileva.service.Action;
 import com.javarush.vasileva.service.BruteForce;
@@ -28,7 +29,7 @@ public class Controller {
                 case 3 -> actions.get(3).execute(request);
                 default -> System.out.println("Invalid choice");
             }
-        } catch (EmptyFileException | TextTooShortException e) {
+        } catch (EmptyFileException | TextTooShortException | InvalidKeyException e) {
             return new Response(ResponseType.BAD_REQUEST.getCode(), ResponseType.BAD_REQUEST, e.getMessage());
         } catch (FileNotFoundException e) {
             return new Response(ResponseType.NOT_FOUND.getCode(), ResponseType.NOT_FOUND, e.getMessage());
